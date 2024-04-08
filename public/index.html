@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transportec</title>
+    <link id="stylesheet" rel="stylesheet" href="./style.css"> <!-- Enlace al archivo de estilos CSS -->
+
+    <style>
+        /* Estilos para el botón de cambio de modo */
+        #modeBtn {
+            font-size: 30px;
+            border-radius: 20px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        #modeIcon {
+            font-size: 24px; /* Tamaño de fuente del icono */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Transpor-tec</h1>
+        <button id="modeBtn" class="btn"><span id="modeIcon">🌙</span></button>
+    </header>
+    <main>
+        <div class="card">
+            <img src="./Assets/efa64776ed568780c0572c01ccbce290-icono-plano-del-autobus-escolar.png" alt="Logo de Transportec">
+            <h2>Transportec</h2>
+            <p>Bienvenidos</p>
+            <a href="./login.html" class="btn">Iniciar sesion</a>
+            <a href="./register.html" class="btn">Registrar</a>
+        </div>
+    </main>
+
+    <script>
+        const modeBtn = document.getElementById('modeBtn');
+        const modeIcon = document.getElementById('modeIcon');
+        const stylesheet = document.getElementById('stylesheet');
+
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+
+        if (darkMode) {
+            stylesheet.href = './dark-mode.css'; // Cambiar al archivo de estilos en modo oscuro
+            modeIcon.textContent = '🌞'; // Cambiar al icono de luna
+        }
+
+        modeBtn.addEventListener('click', () => {
+            darkMode = !darkMode;
+            localStorage.setItem('darkMode', darkMode);
+
+            if (darkMode) {
+                stylesheet.href = './dark-mode.css'; // Cambiar al archivo de estilos en modo oscuro
+                modeIcon.textContent = '🌞'; // Cambiar al icono de luna
+                modeBtn.style.backgroundColor = '#ffffff';
+            } else {
+                stylesheet.href = './style.css'; // Cambiar al archivo de estilos por defecto
+                modeIcon.textContent = '🌙'; // Cambiar al icono de sol
+                modeBtn.style.backgroundColor = '#3a3b3c';
+            }
+        });
+    </script>
+</body>
+</html>

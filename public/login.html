@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Transportec</title>
+    <link id="stylesheet" rel="stylesheet" href="./style.css"> <!-- Enlace al archivo de estilos CSS -->
+
+    <style>
+  #modeBtn {
+            font-size: 30px;
+            border-radius: 20px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 50px;
+            height: 50px;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        /* Estilos para el formulario de registro */
+        #register-form {
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        #register-form input {
+            width: calc(100% - 40px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #register-form button {
+            background-color: #1877f2;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .register-form button:hover {
+            background-color: #146ac5;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Transpor-tec</h1>
+        <button id="modeBtn" class="btn"><span id="modeIcon">🌙</span></button>
+    </header>
+    <main>
+        <div id="register-form" class="card">
+            <h2>Inicia sesion</h2>
+            <form action="/registro" method="POST">
+                <input type="email" name="email" placeholder="Correo electrónico">
+                <input type="password" name="contraseña" placeholder="Contraseña">
+                <button type="submit">Iniciar</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        const modeBtn = document.getElementById('modeBtn');
+        const modeIcon = document.getElementById('modeIcon');
+        const stylesheet = document.getElementById('stylesheet');
+
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+
+        if (darkMode) {
+            stylesheet.href = './dark-mode.css'; // Cambiar al archivo de estilos en modo oscuro
+            modeIcon.textContent = '🌞'; // Cambiar al icono de luna
+            document.getElementById('register-form').style.backgroundColor = '#3a3b3c';
+        }
+
+        modeBtn.addEventListener('click', () => {
+            darkMode = !darkMode;
+            localStorage.setItem('darkMode', darkMode);
+
+            if (darkMode) {
+                stylesheet.href = './dark-mode.css'; // Cambiar al archivo de estilos en modo oscuro
+                modeIcon.textContent = '🌞'; // Cambiar al icono de luna
+                modeBtn.style.backgroundColor = '#ffffff';
+                document.getElementById('register-form').style.backgroundColor = '#3a3b3c'; // Cambiar el fondo del formulario a oscuro
+            } else {
+                stylesheet.href = './style.css'; // Cambiar al archivo de estilos por defecto
+                modeIcon.textContent = '🌙'; // Cambiar al icono de sol
+                modeBtn.style.backgroundColor = '#3a3b3c';
+                document.getElementById('register-form').style.backgroundColor = '#fff'; // Cambiar el fondo del formulario a claro
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const registerForm = document.getElementById('register-form');
+    console.log(registerForm); // Agregar esta línea para verificar el elemento seleccionado
+    registerForm.addEventListener('submit', async (event) => {
+        // Prevenimos que el formulario se envíe de forma predeterminada
+        event.preventDefault();
+
+        // Obtenemos los datos del formulario
+        const formData = new FormData(registerForm);
+
+        try {
+            // Enviamos los datos al servidor usando fetch
+            const response = await fetch('/registro', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Verificamos si la respuesta del servidor es exitosa
+            if (response.ok) {
+                console.log('Usuario registrado correctamente');
+            } else {
+                console.error('Error al registrar usuario:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error al registrar usuario:', error.message);
+        }
+    });
+});
+
+
+    </script>
+    
+</body>
+</html>
